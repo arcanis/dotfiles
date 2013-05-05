@@ -1,0 +1,17 @@
+#
+# ~/.inputrc
+#
+
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+"\eOC": forward-word
+"\e[C": forward-word
+
+"\eOD": backward-word
+"\e[D": backward-word
+
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+set show-all-if-ambiguous on
