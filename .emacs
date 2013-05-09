@@ -32,6 +32,9 @@
 ; Insère le dossier site-lisp local dans le PATH
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
+; Dépendance du Jade mode
+(autoload 'sws-mode "sws-mode" nil t)
+
 ; Javascript
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -56,6 +59,6 @@
 (autoload 'cmake-mode "cmake-mode" nil t)
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
 
-; Corrige Ctrl+left/right
-(global-set-key "\M-OC" 'backward-word)
-(global-set-key "\M-OD" 'forward-word)
+; Jade
+(autoload 'jade-mode "jade-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
