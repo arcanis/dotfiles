@@ -40,6 +40,10 @@
 (autoload 'less-css-mode "less-css-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
 
+; Sass
+(autoload 'sass-mode "sass-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+
 ; PHP
 (autoload 'php-mode "php-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(php[45]?\\|phtml\\|inc\\)$" . php-mode))
@@ -50,7 +54,7 @@
 
 ; YAML
 (autoload 'yaml-mode "yaml-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 
 ; CMake
 (autoload 'cmake-mode "cmake-mode" nil t)
