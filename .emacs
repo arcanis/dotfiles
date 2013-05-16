@@ -59,7 +59,3 @@
 ; CMake
 (autoload 'cmake-mode "cmake-mode" nil t)
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
-
-; Corrige Ctrl+left/right
-(global-set-key "\M-OC" 'backward-word)
-(global-set-key "\M-OD" 'forward-word)
