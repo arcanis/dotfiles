@@ -7,7 +7,7 @@ if [ -z "$target" ]; then
     echo "Usage: $0 <Installation path>"
     exit 1
 else
-    target="$(realpath "$target")"
+    target="$(cd "$target" ; pwd -P)"
     echo "Target is $target"
 fi
 
