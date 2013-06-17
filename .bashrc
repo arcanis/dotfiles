@@ -21,7 +21,24 @@ alias la='ll -A'
 alias rm='rm -I'
 alias gdb='gdb -q '
 alias valgrind='valgrind -q '
-alias droptmux='exit 42'
+
+# Quelques fonctions utiles
+function irclog() {
+    local pattern
+
+    if [ -z "$4" ]; then
+        pattern="$1_$2_*"
+    else
+        pattern="$1_$2_$4.log"
+    fi
+
+    sudo -u znc printf ""
+    sudo -u znc find ~znc/.znc/users/"$3"/moddata/log -name "${pattern}" \
+        | sort \
+        | sudo -u znc xargs cat \
+        | grep --color=always -P '^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\].*arcanis.*|$' \
+        | less -RS +G +F
+}
 
 # Génération du colorset de l'ordinateur (en fonction de son hostname)
 COLOR_SCHEME=$(( echo -n '(0'; echo -n "${HOSTNAME}" | sed "s/\(.\)/'\1\d0/g" | xargs -0 printf "+%d-32" ; echo ')%7+1' ) | bc)
