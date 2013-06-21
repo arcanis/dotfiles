@@ -39,9 +39,17 @@
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
+; Json
+(autoload 'json-mode "json-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+
 ; Less
 (autoload 'less-css-mode "less-css-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
+
+; Sass
+(autoload 'sass-mode "sass-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 
 ; PHP
 (autoload 'php-mode "php-mode" nil t)
@@ -53,12 +61,8 @@
 
 ; YAML
 (autoload 'yaml-mode "yaml-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 
 ; CMake
 (autoload 'cmake-mode "cmake-mode" nil t)
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
-
-; Jade
-(autoload 'jade-mode "jade-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
