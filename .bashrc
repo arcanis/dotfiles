@@ -40,6 +40,10 @@ function irclog() {
         | less -RS +G +F
 }
 
+function sprunge() {
+    curl -F 'sprunge=<-' http://sprunge.us
+}
+
 # Génération du colorset de l'ordinateur (en fonction de son hostname)
 COLOR_SCHEME=$(( echo -n '(0'; echo -n "${HOSTNAME}" | sed "s/\(.\)/'\1\d0/g" | xargs -0 printf "+%d-32" ; echo ')%7+1' ) | bc)
 PROMPT_COLOR="\e[1;9${COLOR_SCHEME}m"
