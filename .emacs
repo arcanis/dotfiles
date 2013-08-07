@@ -66,3 +66,11 @@
 ; CMake
 (autoload 'cmake-mode "cmake-mode" nil t)
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
+
+; Lemon
+(autoload 'lemon-mode "lemon-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.lm$" . lemon-mode))
+
+; Castel
+(autoload 'castel-mode "castel-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.ct$" . castel-mode))
