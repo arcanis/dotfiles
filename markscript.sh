@@ -90,7 +90,7 @@ function marks {
     done | column -t
 }
 
-function markCompletion {
+function _mark_completion {
     [[ "$COMP_CWORD" -ne 1 ]] && return
     local cur=${COMP_WORDS[COMP_CWORD]}
     local marks=$(find "$MARKSPATH" -type l | awk -F '/' '{print $NF}')
@@ -98,5 +98,5 @@ function markCompletion {
     return 0
 }
 
-complete -o default -F markCompletion jump
-complete -o default -F markCompletion unmark
+complete -o default -F _mark_completion jump
+complete -o default -F _mark_completion unmark
