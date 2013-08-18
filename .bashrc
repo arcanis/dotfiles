@@ -12,7 +12,7 @@
 shopt -s checkwinsize
 
 # Définition des alias qui vont bien
-alias sudo='sudo EDITOR="$EDITOR" '
+alias sudo='sudo -E '
 alias emacs='emacs -nw'
 alias ne='emacs'
 alias ls='ls --color=auto --group-directories-first'
