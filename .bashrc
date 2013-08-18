@@ -25,42 +25,7 @@ alias g='grep -PR'
 alias w='watch '
 
 # Markscript
-MARKSPATH="$HOME/.marks/"
-
-function jump {
-    [[ "${1##/*}" = "$1" && "$1" != "." && "$1" != ".." ]] || echo "jump: Bad mark name: $1" && return
-    cd -P "$MARKSPATH"/"$1" 2> /dev/null || echo "jump: No such mark: $1" >&2
-}
-
-function mark {
-    [[ "$@" -lt 3 ]] && marks && return
-    [[ "${1##/*}" = "$1" && "$1" != "." && "$1" != ".." ]] || echo "mark: Bad mark name: $1" && return
-    mkdir -p "$MARKSPATH"
-    ln -sf $(pwd) "$MARKSPATH"/"$1"
-}
-
-function unmark {
-    [[ "${1##/*}" = "$1" && "$1" != "." && "$1" != ".." ]] || echo "unmark: Bad mark name: $1" && return
-    rm -f "$MARKSPATH"/"$1"
-}
-
-function marks {
-    find "$MARKSPATH" -type l -print0 |
-    while read -d $'\0' x; do
-        printf "%s\t->\t%s\n" "$(basename "$x")" "$(readlink "$x")"
-    done | column -t
-}
-
-function markCompletion {
-    [[ "$COMP_CWORD" -ne 1 ]] && return
-    local cur=${COMP_WORDS[COMP_CWORD]}
-    local marks=$(find "$MARKSPATH" -type l | awk -F '/' '{print $NF}')
-    COMPREPLY=($(compgen -W '${marks[@]}' -- "$cur"))
-    return 0
-}
-
-complete -o default -F markCompletion jump
-complete -o default -F markCompletion unmark
+. markscript.sh
 
 # Quelques fonctions utiles
 function irclog() {
