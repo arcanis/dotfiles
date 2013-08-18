@@ -12,7 +12,7 @@
 shopt -s checkwinsize
 
 # Définition des alias qui vont bien
-alias sudo='sudo '
+alias sudo='sudo EDITOR="$EDITOR" '
 alias emacs='emacs -nw'
 alias ne='emacs'
 alias ls='ls --color=auto --group-directories-first'
@@ -116,6 +116,9 @@ HISTCONTROL=ignoredups
 
 # Active l'expansion profonde (ex. **/*.js)
 shopt -s globstar
+
+# Défini l'éditeur que je préfère
+export EDITOR="emacs -nw"
 
 # Lancement automatique de Tmux
 if [[ -z "${TMUX}" ]]; then
