@@ -11,6 +11,9 @@
 # Nous forcons la vérification des dimensions de la fenêtre à chaque commande
 shopt -s checkwinsize
 
+# Markscript
+. markscript.sh
+
 # Définition des alias qui vont bien
 alias sudo='sudo -E '
 alias emacs='emacs -nw'
@@ -23,9 +26,6 @@ alias gdb='gdb -q '
 alias valgrind='valgrind -q '
 alias g='grep -PR'
 alias w='watch '
-
-# Markscript
-. markscript.sh
 
 # Quelques fonctions utiles
 function irclog() {
@@ -41,7 +41,7 @@ function irclog() {
     sudo -u znc find ~znc/.znc/users/"$3"/moddata/log -name "${pattern}" \
         | sort \
         | sudo -u znc xargs cat \
-        | grep --color=always -P '^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\].*arcanis.*|$' \
+        | grep --color=always -P '^\[[0-9]{2}:[0-9]{2}:[0-9]{2}\].*'"$3"'.*|$' \
         | less -RS +G +F
 }
 

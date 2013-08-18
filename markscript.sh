@@ -24,6 +24,10 @@ function jump {
     fi
 
     cd -P "$MARKSPATH"/"$mark"
+
+    if git rev-parse --git-dir >& /dev/null; then
+        git status --branch --short
+    fi
 }
 
 function mark {
