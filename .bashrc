@@ -12,7 +12,7 @@
 shopt -s checkwinsize
 
 # Markscript
-. "$( cd "$( dirname "$( realpath "${BASH_SOURCE[0]}" )" )" && pwd )"/markscript.sh
+. "$( cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd )"/markscript.sh
 
 # Définition des alias qui vont bien
 alias sudo='sudo -E '
