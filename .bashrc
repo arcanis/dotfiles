@@ -18,7 +18,7 @@ shopt -s checkwinsize
 alias sudo='sudo -E '
 alias emacs='emacs -nw'
 alias ne='emacs'
-alias ls='ls --color=auto --group-directories-first'
+alias ls='ls --color=auto --group-directories-first -X'
 alias ll='ls -lh'
 alias la='ll -A'
 alias rm='rm -I'
