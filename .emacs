@@ -29,6 +29,29 @@
 ; Aligne correctement les tableaux PHP
 (c-set-offset 'arglist-close 'c-lineup-arglist-operators)
 
+; Corrige les chiffres du pad avec Putty
+(global-set-key "\eOp" "0")
+(global-set-key "\eOq" "1")
+(global-set-key "\eOr" "2")
+(global-set-key "\eOs" "3")
+(global-set-key "\eOt" "4")
+(global-set-key "\eOu" "5")
+(global-set-key "\eOv" "6")
+(global-set-key "\eOw" "7")
+(global-set-key "\eOx" "8")
+(global-set-key "\eOy" "9")
+(global-set-key "\eOl" "+")
+(global-set-key "\eOQ" "/")
+(global-set-key "\eOR" "*")
+(global-set-key "\eOS" "-")
+(global-set-key "\eOn" ".")
+
+;
+(global-set-key (read-kbd-macro "ESC <right>") 'windmove-right)
+(global-set-key (read-kbd-macro "ESC <left>") 'windmove-left)
+(global-set-key (read-kbd-macro "ESC <up>") 'windmove-up)
+(global-set-key (read-kbd-macro "ESC <down>") 'windmove-down)
+
 ; Insère le dossier site-lisp local dans le PATH
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
@@ -74,3 +97,7 @@
 ; Castel
 (autoload 'castel-mode "castel-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.ct$" . castel-mode))
+
+; Jinja 2
+(autoload 'jinja2-mode "jinja2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.jinja$" . jinja2-mode))
