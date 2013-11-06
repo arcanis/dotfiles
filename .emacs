@@ -70,9 +70,12 @@
 (autoload 'less-css-mode "less-css-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
 
+; Haml
+(autoload 'haml-mode "haml-mode" nil t)
+
 ; Sass
 (autoload 'sass-mode "sass-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
 ; PHP
 (autoload 'php-mode "php-mode" nil t)
