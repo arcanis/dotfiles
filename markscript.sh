@@ -84,6 +84,7 @@ function unmark {
 
 function marks {
     echo "Current marks :"
+    mkdir -p "$MARKSPATH"
     find "$MARKSPATH" -type l -print0 |
     while read -d $'\0' x; do
         printf "%s\t->\t%s\n" "$(basename "$x")" "$(readlink "$x")"
