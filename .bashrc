@@ -14,6 +14,9 @@ shopt -s checkwinsize
 # Markscript
 . "$( cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd )"/markscript.sh
 
+# Pivotal
+. "$( cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd )"/pivotal.sh
+
 # Définition des alias qui vont bien
 alias sudo='sudo -E '
 alias emacs='emacs -nw'
@@ -63,6 +66,20 @@ function findp() {
 function serve() {
     php -S 0.0.0.0:${1-8080}
 }
+
+function fixssh() {
+    for key in SSH_AUTH_SOCK SSH_CONNECTION SSH_CLIENT; do
+        if (tmux show-environment | grep "^${key}" > /dev/null); then
+            value=`tmux show-environment | grep "^${key}" | sed -e "s/^[A-Z_]*=//"`
+            export ${key}="${value}"
+        fi
+    done
+}
+
+# Insertion de la completion des taches pivotal
+_skfbpivo() { _pivotal sketchfab-dev; }
+skfbpivo() { echo -n "${@}"; }
+complete -F _skfbpivo skfbpivo
 
 # Génération du colorset de l'ordinateur (en fonction de son hostname)
 COLOR_SCHEME=$(( echo -n '(0'; echo -n "${HOSTNAME}" | sed "s/\(.\)/'\1\d0/g" | xargs -0 printf "+%d-32" ; echo ')%7+1' ) | bc)

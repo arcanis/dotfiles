@@ -30,4 +30,4 @@
     insteadOf = "gh:"
 
 [push]
-    default = simple
+    default = upstream
