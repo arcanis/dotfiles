@@ -5,6 +5,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Adds gems to the path
+PATH=$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH
+
 # Affiche une liste des paquets possibles quand une commande est absente
 [[ -e /usr/share/doc/pkgfile/command-not-found.bash ]] && source /usr/share/doc/pkgfile/command-not-found.bash
 
@@ -16,6 +19,9 @@ shopt -s checkwinsize
 
 # Pivotal
 . "$( cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd )"/pivotal.sh
+
+# Colors
+. "$( cd "$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )" && pwd )"/colors.sh
 
 # Définition des alias qui vont bien
 alias sudo='sudo -E '
@@ -29,6 +35,7 @@ alias gdb='gdb -q '
 alias valgrind='valgrind -q '
 alias g='grep -PR'
 alias w='watch '
+alias less='less -R'
 
 # Quelques fonctions utiles
 function irclog() {
@@ -61,10 +68,6 @@ function findp() {
     local pattern=$(printf '%q' "$2")
 
     w grep -PR $pattern $path \| sed $sed_tab \| sed $sed_sep \| sed $sed_trim \| column -t -s'"	"' \| cut -c-$COLUMNS
-}
-
-function serve() {
-    php -S 0.0.0.0:${1-8080}
 }
 
 function fixssh() {

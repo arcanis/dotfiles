@@ -1,6 +1,9 @@
 ; Remplace "Yes" et "No" par y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+; PageUp / PageDown vont en haut et en bas des buffers au lieu de bipper
+(setq scroll-error-top-bottom t)
+
 ; Supprime la barre de menu
 (menu-bar-mode -1)
 
@@ -61,6 +64,7 @@
 ; Javascript
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(setq js2-include-jslint-globals t)
 
 ; Json
 (autoload 'json-mode "json-mode" nil t)
@@ -104,3 +108,69 @@
 ; Jinja 2
 (autoload 'jinja2-mode "jinja2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.jinja$" . jinja2-mode))
+
+; Minor mode permettant de faire défiler deux buffers cote-à-cote
+(defun Xsync-window (&optional display-start)
+  "Synchronize point position other window in current frame. Only works if there are exactly two windows in the active wrame not counting the minibuffer."
+  (interactive)
+  (when (= (count-windows 'noMiniBuf) 2)
+    (let ((p (line-number-at-pos))
+      (start (line-number-at-pos (or display-start (window-start))))
+      (vscroll (window-vscroll)))
+      (other-window 1)
+      (goto-char (point-min))
+      (setq start (line-beginning-position start))
+      (forward-line (1- p))
+      (set-window-start (selected-window) start)
+      (set-window-vscroll (selected-window) vscroll)
+      (other-window 1)
+      (unless display-start
+        (redisplay t))
+      )))
+
+(define-minor-mode sync-window-mode
+  "Synchronized view of two buffers in two side-by-side windows."
+  :group 'windows
+  (unless (boundp 'sync-window-mode-active)
+    (setq sync-window-mode-active nil))
+  (if sync-window-mode
+      (progn
+        (add-hook 'post-command-hook 'sync-window-wrapper 'append t)
+        (add-to-list 'window-scroll-functions 'sync-window-wrapper)
+        (Xsync-window))
+    (remove-hook 'post-command-hook 'sync-window-wrapper t)
+    (setq window-scroll-functions (remove 'sync-window-wrapper window-scroll-functions))))
+
+(defun sync-window-wrapper (&optional window display-start)
+  "This wrapper makes sure that `sync-window' is fired from `post-command-hook' only when the buffer of the active window is in `sync-window-mode'."
+  (unless sync-window-mode-active
+    (setq sync-window-mode-active t)
+    (with-selected-window (or window (selected-window))
+      (when sync-window-mode
+        (Xsync-window display-start)))
+    (setq sync-window-mode-active nil)))
+
+(defun sync-window-dual ()
+  "Toggle synchronized view of two buffers in two side-by-side windows simultaneously."
+  (interactive)
+  (if (not (= (count-windows 'noMiniBuf) 2))
+      (error "restricted to two windows")
+    (let ((mode (if sync-window-mode 0 1)))
+      (sync-window-mode mode)
+      (with-selected-window (selected-window)
+        (other-window 1)
+        (sync-window-mode mode)))))
+
+(custom-set-variables
+
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(js2-include-jslint-globals t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
