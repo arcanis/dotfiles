@@ -13,7 +13,7 @@ fi
 
 ( cd "$dir" ; git ls-files ) | cut -f1 -d/ | uniq \
 | while read file; do
-    if [ "$file" \!= "install.sh" -a "$file" \!= "markscript.sh" -a "$file" \!= "pivotal.sh" ]; then
+    if [[ "$file" == .* ]]; then
         echo "Installing $file ..."
         rm -rf "$target"/"$file"
         ln -s "$dir"/"$file" "$target"/"$file"
