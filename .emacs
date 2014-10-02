@@ -1,3 +1,12 @@
+; Active le support de la souris dans xterm
+(xterm-mouse-mode)
+
+; Scroll d'une ligne à la fois avec le clavier
+(setq scroll-step 1)
+
+; Scroll d'une ligne à la fois avec la souris
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+
 ; Remplace "Yes" et "No" par y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -7,8 +16,8 @@
 ; Supprime la barre de menu
 (menu-bar-mode -1)
 
-; Désactive le troncage des lignes quand elles dépassent la fenêtre
-(setq truncate-lines nil)
+; Active le troncage des lignes quand elles dépassent la fenêtre
+(set-default 'truncate-lines t)
 
 ; Empèche l'affichage de la page de démarrage
 (setq inhibit-startup-message t)

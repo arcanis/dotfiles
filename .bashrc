@@ -6,7 +6,12 @@
 [[ $- != *i* ]] && return
 
 # Adds gems to the path
-PATH=$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH
+export PATH=$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH
+
+# Adds Go to the path
+mkdir -p ~/.go/
+export GOPATH=~/.go/
+export PATH=~/.go/bin/:$PATH
 
 # Affiche une liste des paquets possibles quand une commande est absente
 [[ -e /usr/share/doc/pkgfile/command-not-found.bash ]] && source /usr/share/doc/pkgfile/command-not-found.bash
