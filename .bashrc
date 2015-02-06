@@ -2,6 +2,12 @@
 # ~/.bashrc
 #
 
+# Get current directory
+DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+
+# The display is broken, I don't know why :/ That's an attempt to fix it
+[[ $DISPLAY && $DISPLAY != *:0.0 ]] && export DISPLAY=${SSH_CLIENT%% *}:0.0
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -12,6 +18,9 @@ export PATH=$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH
 mkdir -p ~/.go/
 export GOPATH=~/.go/
 export PATH=~/.go/bin/:$PATH
+
+# Adds the home directory to the path
+export PATH=${DIR}/bin/:$PATH
 
 # Affiche une liste des paquets possibles quand une commande est absente
 [[ -e /usr/share/doc/pkgfile/command-not-found.bash ]] && source /usr/share/doc/pkgfile/command-not-found.bash
