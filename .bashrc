@@ -6,7 +6,7 @@
 DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 # The display is broken, I don't know why :/ That's an attempt to fix it
-[[ $DISPLAY && $DISPLAY != *:0.0 ]] && export DISPLAY=${SSH_CLIENT%% *}:0.0
+# [[ $DISPLAY && $DISPLAY != *:0.0 ]] && export DISPLAY=${SSH_CLIENT%% *}:0.0
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
