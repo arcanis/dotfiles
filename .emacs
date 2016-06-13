@@ -52,28 +52,25 @@
 (add-to-list 'auto-mode-alist '("\\.csv$" . csv-mode))
 
 ; Javascript
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(setq js2-include-jslint-globals t)
+(autoload 'web-mode "web-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
+(setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
 
 ; Json
-(autoload 'json-mode "json-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+(autoload 'web-mode "web-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.json$" . web-mode))
 
 ; Less
-(autoload 'less-css-mode "less-css-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.less$" . less-css-mode))
-
-; Haml
-(autoload 'haml-mode "haml-mode" nil t)
+(autoload 'web-mode "web-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.less$" . web-mode))
 
 ; Sass
-(autoload 'sass-mode "sass-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
+(autoload 'web-mode "web-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.scss$" . web-mode))
 
 ; PHP
-(autoload 'php-mode "php-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.\\(php[45]?\\|phtml\\|inc\\)$" . php-mode))
+(autoload 'web-mode "web-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
 
 ; Markdown
 (autoload 'markdown-mode "markdown-mode" nil t)
@@ -95,6 +92,31 @@
 (autoload 'castel-mode "castel-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.ct$" . castel-mode))
 
-; Jinja 2
-(autoload 'jinja2-mode "jinja2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.jinja$" . jinja2-mode))
+(require 'generic-x) ;; we need this
+
+(define-generic-mode 'kir-mode
+  '("/!")
+  '("local" "update" "if" "or" "map" "parallel")
+  '(("^[[:space:]]*\\([a-z]+\\)" (1 'font-lock-function-name-face))
+    ("^[[:space:]]*\\(\\]\\)[[:space:]]*\\(\\[\\)[[:space:]]*$" (1 'font-lock-builtin-face) (2 'font-lock-builtin-face))
+    ("\\(\\[\\)[[:space:]]*$" 1 'font-lock-builtin-face)
+    ("^[[:space:]]*\\(\\]\\)[[:space:]]*$" 1 'font-lock-builtin-face)
+    ("\\${\\([a-zA-Z_]+\\)}" 1 'font-lock-variable-name-face))
+  '("\\.desc$")
+  nil
+  "A mode for foo files"
+  )
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(font-lock-string-face ((t (:foreground "green"))))
+ '(font-lock-variable-name-face ((t (:foreground "brightmagenta")))))

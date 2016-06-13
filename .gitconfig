@@ -2,28 +2,23 @@
     name  = Maël Nison
     email = nison.mael@gmail.com
 
-[alias]
-    loq = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
-    lg = log
-    st = status
-
 [color]
     ui = auto
 
 [color "branch"]
     current = green
-    local   = cyan
-    remote  = yellow
+    local = cyan
+    remote = yellow
 
 [color "diff"]
     meta = yellow bold
     frag = magenta bold
-    old  = red bold
-    new  = green bold
+    old = red bold
+    new = green bold
 
 [color "status"]
-    added     = green
-    changed   = yellow
+    added = green
+    changed = yellow
     untracked = cyan
 
 [url "git@github.com:"]
