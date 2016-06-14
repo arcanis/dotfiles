@@ -26,9 +26,6 @@ ZSH_TMUX_AUTOSTART="true"
 # Use case-sensitive completion.
 CASE_SENSITIVE="true"
 
-# Enable command auto-correction.
-ENABLE_CORRECTION="true"
-
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
@@ -50,11 +47,17 @@ export EDITOR='emacs -nw'
 # Remove oh-my-zsh aliases.
 unalias -m '*'
 
+# Add back some useful aliases.
+alias ../..='cd ../..'
+alias ../../..='cd ../../..'
+alias ../../../..='cd ../../../..'
+
 # Set personal aliases.
 alias emacs='emacs -nw'
 alias ne='emacs'
 alias sudo='sudo -E'
 alias ls='LC_ALL=C ls --color=auto --group-directories-first -X'
 alias ll='ls -lh'
+alias la='ll -a'
 alias rm='rm -I'
 alias sprunge='curl -F "sprunge=<-" http://sprunge.us'

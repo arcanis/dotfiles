@@ -24,7 +24,7 @@ function git_current_branch() {
 
 function theme_top_line() {
 
-    echo ${(r:$COLUMNS::─:)}
+    print -P -- ${FG[238]}${(r:$COLUMNS::─:)}
 
 }
 
@@ -39,8 +39,8 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd theme_top_line
 add-zsh-hook preexec theme_bottom_line
 
-local ret_status="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯)"
-PROMPT='${ret_status} %{$fg[cyan]%}$(git_current_branch)%{$reset_color%} $(git_prompt_info)'
+local ret_status="%(?:%{$fg_bold[green]%}❯:%{$fg_bold[red]%}❯)%{$reset_color%}"
+PROMPT='${ret_status} %{$fg[cyan]%}$(git_current_branch)%{$reset_color%} $(git_prompt_info)${ret_status} '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
