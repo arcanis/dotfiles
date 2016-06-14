@@ -31,7 +31,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git nvm nvm-auto tmux)
+plugins=(git nvm nvm-auto tmux git-root)
 
 # Finally load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -48,6 +48,7 @@ export EDITOR='emacs -nw'
 unalias -m '*'
 
 # Add back some useful aliases.
+alias /='git_root'
 alias ../..='cd ../..'
 alias ../../..='cd ../../..'
 alias ../../../..='cd ../../../..'
