@@ -62,3 +62,8 @@ alias ll='ls -lh'
 alias la='ll -a'
 alias rm='rm -I'
 alias sprunge='curl -F "sprunge=<-" http://sprunge.us'
+alias amend='git commit --amend --no-edit'
+
+alias docker.bash="docker exec -ti docker_wisembly_1 /bin/bash"
+alias docker.sql="docker exec -ti docker_db_1 mysql -uroot -proot wisembly_dev"
+alias docker.resetdb="docker.bash -c 'cd api && ./bin/create_database.sh'"
