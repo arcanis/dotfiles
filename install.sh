@@ -41,6 +41,7 @@ done <<EOF
 
     .ssh/rc
 
+    .oh-my-zsh/custom
     .zshrc
 
 EOF

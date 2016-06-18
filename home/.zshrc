@@ -14,9 +14,6 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Custom plugins/themes paths.
-ZSH_CUSTOM="$SCRIPT_DIRECTORY/oh-my-zsh"
-
 # Set name of the theme to load.
 ZSH_THEME="arca"
 
