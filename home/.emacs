@@ -54,7 +54,13 @@
 ; Javascript
 (autoload 'web-mode "web-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
-(setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+
+(add-hook 'web-mode-hook
+    (lambda ()
+        ;; short circuit js mode and just do everything in jsx-mode
+        (if (equal web-mode-content-type "javascript")
+            (web-mode-set-content-type "jsx")
+            (message "now set to: %s" web-mode-content-type))))
 
 ; Json
 (autoload 'web-mode "web-mode" nil t)
@@ -91,32 +97,3 @@
 ; Castel
 (autoload 'castel-mode "castel-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.ct$" . castel-mode))
-
-(require 'generic-x) ;; we need this
-
-(define-generic-mode 'kir-mode
-  '("/!")
-  '("local" "update" "if" "or" "map" "parallel")
-  '(("^[[:space:]]*\\([a-z]+\\)" (1 'font-lock-function-name-face))
-    ("^[[:space:]]*\\(\\]\\)[[:space:]]*\\(\\[\\)[[:space:]]*$" (1 'font-lock-builtin-face) (2 'font-lock-builtin-face))
-    ("\\(\\[\\)[[:space:]]*$" 1 'font-lock-builtin-face)
-    ("^[[:space:]]*\\(\\]\\)[[:space:]]*$" 1 'font-lock-builtin-face)
-    ("\\${\\([a-zA-Z_]+\\)}" 1 'font-lock-variable-name-face))
-  '("\\.desc$")
-  nil
-  "A mode for foo files"
-  )
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(font-lock-string-face ((t (:foreground "green"))))
- '(font-lock-variable-name-face ((t (:foreground "brightmagenta")))))

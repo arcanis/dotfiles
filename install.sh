@@ -39,8 +39,6 @@ done <<EOF
     .inputrc
     .tmux.conf
 
-    .ssh/rc
-
     .oh-my-zsh/custom
     .zshrc
 
