@@ -33,6 +33,9 @@ plugins=(git nvm nvm-auto tmux git-root fix-ssh)
 # Start an SSH agent with the right id_rsa if we're inside a Bash On Windows environment
 [[ -e /mnt/c/Users/Mael/Documents/id_rsa ]] && eval $(ssh-agent) >& /dev/null && ssh-add /mnt/c/Users/Mael/Documents/id_rsa >& /dev/null
 
+# Export the DISPLAY environment if we're inside a Bash On Windows environment
+[[ -e /mnt/c ]] && export DISPLAY=localhost:0.0
+
 # Finally load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
