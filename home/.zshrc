@@ -59,7 +59,7 @@ alias ../../../..='cd ../../../..'
 # Set personal aliases.
 alias emacs='emacs -nw'
 alias ne='emacs'
-alias sudo='sudo -E'
+alias sudo='sudo -E '
 alias ls='LC_ALL=C ls --color=auto --group-directories-first -X'
 alias ll='ls -lh'
 alias la='ll -a'
