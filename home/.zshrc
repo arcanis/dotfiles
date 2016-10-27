@@ -20,6 +20,9 @@ ZSH_THEME="arca"
 # Automatically start tmux.
 ZSH_TMUX_AUTOSTART="true"
 
+# Automatically start tmux.
+ZSH_TMUX_AUTOQUIT="false"
+
 # Use case-sensitive completion.
 CASE_SENSITIVE="true"
 
