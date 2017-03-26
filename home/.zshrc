@@ -14,6 +14,9 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+# Enables truecolors
+export COLORTERM=truecolor
+
 # Set name of the theme to load.
 ZSH_THEME="arca"
 
@@ -73,3 +76,6 @@ alias amend='git commit --amend --no-edit'
 alias docker.bash="docker exec -ti docker_wisembly_1 /bin/bash"
 alias docker.sql="docker exec -ti docker_db_1 mysql -uroot -proot wisembly_dev"
 alias docker.resetdb="docker.bash -c 'cd api && ./bin/create_database.sh'"
+
+export NVM_DIR="/home/arcanis/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
