@@ -1,5 +1,13 @@
 ; Active le support de la souris dans xterm
-(xterm-mouse-mode)
+(require 'mouse)
+(xterm-mouse-mode t)
+
+(global-set-key (kbd "<wheel-up>") '(lambda () (interactive) (scroll-up 1)))
+(global-set-key (kbd "<wheel-down>") '(lambda () (interactive) (scroll-down 1)))
+
+; Active le scroll sur OSX / iTerm2
+(global-set-key [mouse-4] (lambda () (interactive) (scroll-down 1)))
+(global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))
 
 ; Scroll d'une ligne à la fois avec le clavier
 (setq scroll-step 1)
