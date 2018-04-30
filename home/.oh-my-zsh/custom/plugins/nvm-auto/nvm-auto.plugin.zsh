@@ -3,6 +3,10 @@ typeset -U chpwd_functions
 
 function nvm_auto_use() {
 
+    if ! which nvm_version >& /dev/null; then
+        return 0
+    fi
+
     nvm_rc_version >& /dev/null
 
     if [[ $NVM_RC_VERSION == '' ]]; then
