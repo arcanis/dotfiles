@@ -1,0 +1,6 @@
+if command git symbolic-ref --quiet HEAD >& /dev/null; then
+    cd "$(git rev-parse --show-toplevel)"
+else
+    echo "Couldn't find the base of this git repository" > /dev/stderr
+    exit 1
+fi

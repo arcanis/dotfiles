@@ -11,6 +11,10 @@ else
     SCRIPT_DIRECTORY=$(dirname "$SCRIPT_PATH")
 fi
 
+# Coreutils on OSX
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -34,7 +38,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git nvm nvm-auto tmux git-root fix-ssh)
+plugins=(nvm nvm-auto tmux)
 
 # Start an SSH agent with the right id_rsa if we're inside a Bash On Windows environment
 [[ -e /mnt/c/Users/Mael/Documents/id_rsa ]] && eval $(ssh-agent) >& /dev/null && ssh-add /mnt/c/Users/Mael/Documents/id_rsa >& /dev/null
@@ -42,10 +46,16 @@ plugins=(git nvm nvm-auto tmux git-root fix-ssh)
 # Export the DISPLAY environment if we're inside a Bash On Windows environment
 [[ -e /mnt/c ]] && export DISPLAY=localhost:0.0
 
+# Links the utilities bundled with the dotfiles
+export PATH="$SCRIPT_DIRECTORY"/../utils:"$PATH"
+
 # Finally load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+# Add yn to the path
+export PATH=~/yn/dist:"$PATH"
 
 # Language environment
 export LANG=en_US.UTF-8
@@ -76,6 +86,3 @@ alias amend='git commit --amend --no-edit'
 alias docker.bash="docker exec -ti docker_wisembly_1 /bin/bash"
 alias docker.sql="docker exec -ti docker_db_1 mysql -uroot -proot wisembly_dev"
 alias docker.resetdb="docker.bash -c 'cd api && ./bin/create_database.sh'"
-
-export NVM_DIR="/home/arcanis/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

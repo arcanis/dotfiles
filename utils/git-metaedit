@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+. "$(git --exec-path)/git-sh-setup"
+
+set -eu
+
+strjoin() {
+    local delimiter="${1}"
+    shift
+
+    if [[ $# -gt 0 ]]; then
+        printf "%s" "${1}"
+        shift
+    fi
+
+    for arg in "$@"; do
+        printf "%s%s" "${delimiter}" "${arg}"
+    done
+}
+
+main() {
+    require_clean_work_tree "push-story"
+
+    local merge_base=$(git merge-base "$@")
+
+    if [[ $(wc -l <<< "${merge_base}") -ne 1 ]]; then
+        echo "Couldn't properly deduce the merge base" > /dev/stderr
+        exit 1
+    fi
+
+    git -c sequence.editor="sed -i'.bak' -E 's/pick ($(strjoin '|' "$@"))/reword \1/g'" rebase -i "${merge_base}^"
+}
+
+main "$@"

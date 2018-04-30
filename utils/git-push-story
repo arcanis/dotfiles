@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+. "$(git --exec-path)/git-sh-setup"
+
+set -eu
+
+DIRECTIVE='Branch' # any regex metacharacters should be escaped
+BRANCH_PREFIX=''
+
+get_target_branch() {
+    commit="${1}"
+    directive="$(git show --pretty='%B' "${commit}" | sed -n 's/^'"${DIRECTIVE}"': \([A-Za-z0-9_.-]*\)$/\1/p')"
+
+    if [ -z "${directive}" ]; then
+        printf >&2 '%s: Error: Missing "%s" directive\n' "${commit}" "${DIRECTIVE}"
+        return 1
+    fi
+
+    if [ "$(printf '%s\n' "${directive}" | wc -l)" -gt 1 ]; then
+        printf >&2 '%s: Error: Multiple "%s" directives\n' "${commit}" "${DIRECTIVE}"
+        return 1
+    fi
+
+    printf '%s%s\n' "${BRANCH_PREFIX}" "${directive}"
+}
+
+validate() {
+    commit="${1}"
+
+    get_target_branch "${commit}" > /dev/null
+}
+
+send() {
+    commit="${1}"
+    branch="${2}"
+    base="${3}"
+
+    if git ls-remote --heads origin "${branch}" > /dev/null; then
+
+        git push --force-with-lease --quiet origin "${commit}":refs/heads/"${branch}"
+
+        echo "Pushed ${branch} - the branch already exists, so no PR has been created"
+
+    else
+
+        git push --force-with-lease --quiet origin "${commit}":refs/heads/"${branch}"
+
+        hub pull-request -F - -b "${base}" -h "${branch}" <<EOF
+Just a test, pay no attention
+EOF
+    fi
+}
+
+main() {
+    if ! which hub >& /dev/null; then
+        echo "Please install hub, the github commandline interface" > /dev/stderr
+        exit 1
+    fi
+
+    require_clean_work_tree "push-story"
+
+    bad_commits=()
+
+    while read commit; do
+
+        if ! validate "$commit"; then
+            bad_commits[${#bad_commits[@]}]="$commit"
+        fi
+
+    done <<< "$(git rev-list --abbrev-commit --ancestry-path --reverse master..HEAD)"
+
+    if [[ ${#bad_commits[@]} -gt 0 ]]; then
+
+        echo > /dev/stderr
+
+        echo "Run the following command to fix those commits:" > /dev/stderr
+        echo "git metaedit" "${bad_commits[@]}" > /dev/stderr
+
+        exit 1
+
+    fi
+
+    local base='master'
+
+    while read commit; do
+
+        branch="$(get_target_branch "${commit}")"
+        send "${commit}" "${branch}" "${base}"
+        base="${branch}"
+
+    done <<< "$(git rev-list --abbrev-commit --ancestry-path --reverse master..HEAD)"
+}
+
+main "$@"
