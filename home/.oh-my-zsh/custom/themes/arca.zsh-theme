@@ -1,6 +1,6 @@
 function theme_top_line() {
 
-    print -P -- "${(r:$COLUMNS::─:)}"
+    print -P -- ""
 
 }
 
