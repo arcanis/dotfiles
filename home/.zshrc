@@ -87,6 +87,9 @@ alias push='git push -u origin HEAD'
 export DATADOG_ROOT="$HOME/dd"
 export PATH="$PATH:$DATADOG_ROOT/devtools/bin"
 
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
 if [[ -e /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
